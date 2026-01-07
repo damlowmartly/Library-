@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning Library</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: white;
+            color: #333;
+        }
+
+        /* Header with Search Bar */
+        header {
+            background-color: #2c3e50;
+            padding: 20px;
+            text-align: center;
+        }
+
+        #searchBar {
+            width: 60%;
+            padding: 12px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+        }
+
+        /* Container for sidebar and main content */
+        .container {
+            display: flex;
+            min-height: calc(100vh - 80px);
+        }
+
+        /* Left Sidebar */
+        .sidebar {
+            width: 250px;
+            background-color: #ecf0f1;
+            padding: 20px;
+            border-right: 2px solid #bdc3c7;
+        }
+
+        .sidebar h3 {
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+
+        .sidebar ul {
+            list-style: none;
+        }
+
+        .sidebar li {
+            padding: 12px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .sidebar li:hover {
+            background-color: #d5dbdb;
+        }
+
+        .sidebar li.active {
+            background-color: #3498db;
+            color: white;
+            font-weight: bold;
+        }
+
+        /* Main Content Area */
+        .main-content {
+            flex: 1;
+            padding: 40px;
+        }
+
+        .topic-title {
+            font-size: 32px;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+
+        /* Demo Picture Section */
+        .demo-section {
+            margin-bottom: 40px;
+        }
+
+        .demo-section img {
+            width: 100%;
+            max-width: 600px;
+            height: auto;
+            border: 2px solid #bdc3c7;
+            border-radius: 8px;
+        }
+
+        /* Why Section */
+        .why-section {
+            margin-bottom: 40px;
+        }
+
+        .why-section h2 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 24px;
+        }
+
+        .why-section p {
+            line-height: 1.6;
+            font-size: 16px;
+        }
+
+        /* Explanation Section */
+        .explanation-section {
+            margin-bottom: 40px;
+        }
+
+        .explanation-section h2 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 24px;
+        }
+
+        .explanation-section p {
+            line-height: 1.6;
+            font-size: 16px;
+        }
+
+        /* Quiz Section */
+        .quiz-section {
+            margin-bottom: 40px;
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .quiz-section h2 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 24px;
+        }
+
+        .quiz-question {
+            margin-bottom: 15px;
+        }
+
+        .quiz-question p {
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .quiz-option {
+            padding: 12px 20px;
+            margin: 8px 0;
+            border: 2px solid #3498db;
+            background-color: white;
+            color: #333;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: block;
+            width: 100%;
+            text-align: left;
+            font-size: 16px;
+        }
+
+        .quiz-option:hover {
+            background-color: #ecf0f1;
+        }
+
+        .quiz-option.correct {
+            background-color: #27ae60;
+            color: white;
+            border-color: #27ae60;
+        }
+
+        .quiz-option.wrong {
+            background-color: #e74c3c;
+            color: white;
+            border-color: #e74c3c;
+        }
+
+        .quiz-option:disabled {
+            cursor: not-allowed;
+        }
+
+        /* Recommended Videos Section */
+        .video-section {
+            margin-bottom: 40px;
+        }
+
+        .video-section h2 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 24px;
+        }
+
+        .video-links {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .video-links a {
+            color: #3498db;
+            text-decoration: none;
+            font-size: 16px;
+            padding: 10px;
+            background-color: #ecf0f1;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .video-links a:hover {
+            background-color: #d5dbdb;
+        }
+    </style>
+</head>
+<body>
+    <!-- Search Bar Header -->
+    <header>
+        <input type="text" id="searchBar" placeholder="Search topics...">
+    </header>
+
+    <div class="container">
+        <!-- Left Sidebar -->
+        <aside class="sidebar">
+            <h3>Topics</h3>
+            <ul id="topicList">
+                <li class="active" data-topic="algebra1">Algebra 1</li>
+                <li data-topic="algebra2">Algebra 2</li>
+                <li data-topic="algebra3">Algebra 3</li>
+                <li data-topic="algebra4">Algebra 4</li>
+                <li data-topic="algebra5">Algebra 5</li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <h1 class="topic-title" id="topicTitle">Algebra 1</h1>
+
+            <!-- Demo Picture Section -->
+            <section class="demo-section">
+                <img id="demoImage" src="https://via.placeholder.com/600x400?text=Algebra+1+Demo" alt="Demo Picture">
+            </section>
+
+            <!-- Why Section -->
+            <section class="why-section">
+                <h2>Why Learn This?</h2>
+                <p id="whyText">
+                    Algebra 1 is the foundation of all higher mathematics. It introduces you to variables, equations, and functions that are essential for problem-solving in everyday life and advanced studies.
+                </p>
+            </section>
+
+            <!-- Explanation Section -->
+            <section class="explanation-section">
+                <h2>Explanation</h2>
+                <p id="explanationText">
+                    In Algebra 1, you'll learn to work with linear equations, solve for unknown variables, understand the concept of functions, and graph equations on a coordinate plane. This course builds critical thinking and analytical skills.
+                </p>
+            </section>
+
+            <!-- Quiz Section -->
+            <section class="quiz-section">
+                <h2>Practice Quiz - <span id="quizProgress">Question 1/10</span></h2>
+                <div id="quizContainer">
+                    <div class="quiz-question">
+                        <p id="quizQuestion"></p>
+                        <div id="quizOptions"></div>
+                    </div>
+                    <button id="nextBtn" onclick="nextQuestion()" style="display:none; margin-top: 15px; padding: 10px 20px; background-color: #27ae60; color: white; border: none; border-radius: 5px; cursor: pointer;">Next Question</button>
+                </div>
+                <div id="quizResults" style="display:none;">
+                    <h3>Quiz Complete! 🎉</h3>
+                    <p id="scoreDisplay" style="font-size: 24px; font-weight: bold; color: #27ae60; margin: 20px 0;"></p>
+                    <button onclick="restartQuiz()" style="padding: 10px 20px; background-color: #3498db; color: white; border: none; border-radius: 5px; cursor: pointer;">Restart Quiz</button>
+                </div>
+            </section>
+
+            <!-- Recommended Videos Section -->
+            <section class="video-section">
+                <h2>Recommended Videos</h2>
+                <div class="video-links" id="videoLinks">
+                    <a href="https://www.youtube.com" target="_blank">📺 Introduction to Algebra 1</a>
+                    <a href="https://www.youtube.com" target="_blank">📺 Solving Linear Equations</a>
+                    <a href="https://www.youtube.com" target="_blank">📺 Graphing Functions</a>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        // Random number generator helper
+        function rand(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        // Generate random questions for Algebra 1
+        function generateAlgebra1Questions() {
+            const questions = [];
+            
+            // Type 1: ax + b = c (solve for x)
+            for (let i = 0; i < 3; i++) {
+                const a = rand(2, 9);
+                const b = rand(1, 15);
+                const x = rand(1, 10);
+                const c = a * x + b;
+                const correct = x;
+                questions.push({
+                    q: `Solve for x: ${a}x + ${b} = ${c}`,
+                    correct: correct,
+                    type: "value"
+                });
+            }
+            
+            // Type 2: ax - b = c (solve for x)
+            for (let i = 0; i < 2; i++) {
+                const a = rand(2, 8);
+                const b = rand(1, 12);
+                const x = rand(2, 10);
+                const c = a * x - b;
+                const correct = x;
+                questions.push({
+                    q: `Solve for x: ${a}x - ${b} = ${c}`,
+                    correct: correct,
+                    type: "value"
+                });
+            }
+            
+            // Type 3: x/a = b (solve for x)
+            for (let i = 0; i < 2; i++) {
+                const a = rand(2, 6);
+                const b = rand(2, 8);
+                const correct = a * b;
+                questions.push({
+                    q: `Solve for x: x/${a} = ${b}`,
+                    correct: correct,
+                    type: "value"
+                });
+            }
+            
+            // Type 4: Simple addition/subtraction
+            for (let i = 0; i < 2; i++) {
+                const a = rand(1, 20);
+                const b = rand(1, 15);
+                const correct = a + b;
+                questions.push({
+                    q: `What is ${a} + ${b}?`,
+                    correct: correct,
+                    type: "value"
+                });
+            }
+            
+            // Type 5: x - a = b (solve for x)
+            const a5 = rand(5, 15);
+            const b5 = rand(1, 10);
+            questions.push({
+                q: `Solve for x: x - ${a5} = ${b5}`,
+                correct: a5 + b5,
+                type: "value"
+            });
+            
+            return questions;
+        }
+
+        // Content data for each topic
+        const topicData = {
+            algebra1: {
+                title: "Algebra 1",
+                image: "https://via.placeholder.com/600x400?text=Algebra+1+Demo",
+                why: "Algebra 1 is the foundation of all higher mathematics. It introduces you to variables, equations, and functions that are essential for problem-solving in everyday life and advanced studies.",
+                explanation: "In Algebra 1, you'll learn to work with linear equations, solve for unknown variables, understand the concept of functions, and graph equations on a coordinate plane. This course builds critical thinking and analytical skills.",
+                quizGenerator: generateAlgebra1Questions,
+                videos: [
+                    { title: "📺 Introduction to Algebra 1", url: "https://www.youtube.com" },
+                    { title: "📺 Solving Linear Equations", url: "https://www.youtube.com" },
+                    { title: "📺 Graphing Functions", url: "https://www.youtube.com" }
+                ]
+            },
+            algebra2: {
+                title: "Algebra 2",
+                image: "https://via.placeholder.com/600x400?text=Algebra+2+Demo",
+                why: "Algebra 2 builds on Algebra 1 concepts and introduces more complex functions, including quadratic, exponential, and logarithmic functions. It's crucial for STEM fields and standardized tests.",
+                explanation: "Algebra 2 covers polynomials, rational expressions, complex numbers, and conic sections. You'll develop advanced problem-solving skills and learn to model real-world situations mathematically.",
+                quizGenerator: function() {
+                    const questions = [];
+                    
+                    // Type 1: x² = a (solve for x)
+                    for (let i = 0; i < 3; i++) {
+                        const a = rand(2, 6);
+                        const correct = a * a;
+                        questions.push({
+                            q: `What is x if x² = ${correct}?`,
+                            correct: a,
+                            type: "value"
+                        });
+                    }
+                    
+                    // Type 2: a² + b²
+                    for (let i = 0; i < 2; i++) {
+                        const a = rand(2, 5);
+                        const b = rand(2, 5);
+                        const correct = a*a + b*b;
+                        questions.push({
+                            q: `Calculate: ${a}² + ${b}²`,
+                            correct: correct,
+                            type: "value"
+                        });
+                    }
+                    
+                    // Type 3: Powers (a^b)
+                    for (let i = 0; i < 2; i++) {
+                        const a = rand(2, 4);
+                        const b = rand(2, 3);
+                        const correct = Math.pow(a, b);
+                        questions.push({
+                            q: `What is ${a}^${b}?`,
+                            correct: correct,
+                            type: "value"
+                        });
+                    }
+                    
+                    // Type 4: Square roots
+                    for (let i = 0; i < 2; i++) {
+                        const a = rand(2, 7);
+                        const correct = a;
+                        questions.push({
+                            q: `What is √${a*a}?`,
+                            correct: correct,
+                            type: "value"
+                        });
+                    }
+                    
+                    // Type 5: a² - b²
+                    const a5 = rand(5, 8);
+                    const b5 = rand(2, 4);
+                    questions.push({
+                        q: `Calculate: ${a5}² - ${b5}²`,
+                        correct: a5*a5 - b5*b5,
+                        type: "value"
+                    });
+                    
+                    return questions;
+                },
+                videos: [
+                    { title: "📺 Quadratic Functions", url: "https://www.youtube.com" },
+                    { title: "📺 Exponential Growth", url: "https://www.youtube.com" },
+                    { title: "📺 Logarithms Explained", url: "https://www.youtube.com" }
+                ]
+            },
+            algebra3: {
+                title: "Algebra 3",
+                image: "https://via.placeholder.com/600x400?text=Algebra+3+Demo",
+                why: "Algebra 3 prepares you for calculus and advanced mathematics. It deepens your understanding of functions and introduces trigonometry and analytical geometry.",
+                explanation: "In Algebra 3, you'll explore advanced functions, matrices, sequences and series, and probability. This course is essential for students pursuing mathematics, engineering, or science careers.",
+                quizGenerator: function() {
+                    const questions = [];
+                    
+                    // Type 1: Sum of sequence (1+2+3+...+n)
+                    for (let i = 0; i < 3; i++) {
+                        const n = rand(5, 10);
+                        const correct = (n * (n + 1)) / 2;
+                        questions.push({
+                            q: `Sum of 1+2+3+...+${n} = ?`,
+                            correct: correct,
+                            type: "value"
+                        });
+                    }
+                    
+                    // Type 2: Factorial
+                    for (let i = 0; i < 2; i++) {
+                        const n = rand(3, 5);
+                        let correct = 1;
+                        for (let j = 2; j <= n; j++) correct *= j;
+                        questions.push({
+                            q: `What is ${n}! (factorial)?`,
+                            correct: correct,
+                            type: "value"
+                        });
+                    }
+                    
+                    // Type 3: Geometric sequence
+                    for (let i = 0; i < 2; i++) {
+                        const a = rand(2, 3);
+                        const r = rand(2, 3);
+                        const n = rand(3, 4);
+                        const correct = a * Math.pow(r, n-1);
+                        questions.push({
+                            q: `Geometric sequence: first term=${a}, ratio=${r}. What is term ${n}?`,
+                            correct: correct,
+                            type: "value"
+                        });
+                    }
+                    
+                    // Type 4: Powers of 3
+                    for (let i = 0; i < 2; i++) {
+                        const n = rand(2, 4);
+                        const correct = Math.pow(3, n);
+                        questions.push({
+                            q: `What is 3^${n}?`,
+                            correct: correct,
+                            type: "value"
+                        });
+                    }
+                    
+                    // Type 5: Arithmetic sequence
+                    const a5 = rand(2, 5);
+                    const d5 = rand(2, 4);
+                    const n5 = rand(4, 6);
+                    questions.push({
+                        q: `Arithmetic sequence: first=${a5}, difference=${d5}. What is term ${n5}?`,
+                        correct: a5 + (n5-1)*d5,
+                        type: "value"
+                    });
+                    
+                    return questions;
+                },
+                videos: [
+                    { title: "📺 Matrix Operations", url: "https://www.youtube.com" },
+                    { title: "📺 Sequences and Series", url: "https://www.youtube.com" },
+                    { title: "📺 Introduction to Trigonometry", url: "https://www.youtube.com" }
+                ]
+            },
+            algebra4: {
+                title: "Algebra 4",
+                image: "https://via.placeholder.com/600x400?text=Algebra+4+Demo",
+                why: "Algebra 4 focuses on abstract algebraic structures and prepares students for college-level mathematics. It develops rigorous mathematical thinking and proof-writing skills.",
+                explanation: "Algebra 4 covers topics like groups, rings, fields, and vector spaces. You'll learn to think abstractly about mathematical structures and develop formal proof techniques.",
+                quizGenerator: function() {
+                    const questions = [];
+                    
+                    // Type 1: Modulo arithmetic
+                    for (let i = 0; i < 3; i++) {
+                        const a = rand(10, 25);
+                        const b = rand(3, 7);
+                        const correct = a % b;
+                        questions.push({
+                            q: `What is ${a} mod ${b}?`,
+                            correct: correct,
+                            type: "value"
+                        });
+                    }
+                    
+                    // Type 2: GCD (greatest common divisor)
+                    for (let i = 0; i < 2; i++) {
+                        const g = rand(2, 5);
+                        const m1 = rand(2, 4);
+                        const m2 = rand(2, 4);
+                        const a = g * m1;
+                        const b = g * m2;
+                        questions.push({
+                            q: `What is gcd(${a}, ${b})?`,
+                            correct: g,
+                            type: "value"
+                        });
+                    }
+                    
+                    // Type 3: Set cardinality
+                    for (let i = 0; i < 2; i++) {
+                        const n = rand(3, 8);
+                        questions.push({
+                            q: `How many elements in a set with ${n} distinct items?`,
+                            correct: n,
+                            type: "value"
+                        });
+                    }
+                    
+                    // Type 4: Binary addition
+                    for (let i = 0; i < 2; i++) {
+                        const a = rand(1, 7);
+                        const b = rand(1, 7);
+                        const correct = a + b;
+                        questions.push({
+                            q: `In decimal: ${a} + ${b} = ?`,
+                            correct: correct,
+                            type: "value"
+                        });
+                    }
+                    
+                    // Type 5: Absolute value
+                    const a5 = rand(-15, -5);
+                    questions.push({
+                        q: `What is |${a5}| (absolute value)?`,
+                        correct: Math.abs(a5),
+                        type: "value"
+                    });
+                    
+                    return questions;
+                },
+                videos: [
+                    { title: "📺 Introduction to Abstract Algebra", url: "https://www.youtube.com" },
+                    { title: "📺 Group Theory Basics", url: "https://www.youtube.com" },
+                    { title: "📺 Ring Theory", url: "https://www.youtube.com" }
+                ]
+            },
+            algebra5: {
+                title: "Algebra 5",
+                image: "https://via.placeholder.com/600x400?text=Algebra+5+Demo",
+                why: "Algebra 5 represents advanced algebraic theory and is typically studied at the undergraduate or graduate level. It's essential for pure mathematics research and theoretical physics.",
+                explanation: "Algebra 5 delves into advanced topics such as Galois theory, algebraic geometry, representation theory, and homological algebra. This course is for students serious about pursuing mathematics as a career.",
+                quizGenerator: function() {
+                    const questions = [];
+                    
+                    // Type 1: Polynomial degree questions
+                    for (let i = 0; i < 3; i++) {
+                        const n = rand(2, 5);
+                        questions.push({
+                            q: `What is the degree of x^${n}?`,
+                            correct: n,
+                            type: "value"
+                        });
+                    }
+                    
+                    // Type 2: Vector dimension
+                    for (let i = 0; i < 2; i++) {
+                        const n = rand(2, 6);
+                        questions.push({
+                            q: `What is the dimension of ℝ^${n}?`,
+                            correct: n,
+                            type: "value"
+                        });
+                    }
+                    
+                    // Type 3: LCM (least common multiple)
+                    for (let i = 0; i < 2; i++) {
+                        const a = rand(2, 6);
+                        const b = rand(2, 6);
+                        const lcm = (a * b) / gcd(a, b);
+                        questions.push({
+                            q: `What is lcm(${a}, ${b})?`,
+                            correct: lcm,
+                            type: "value"
+                        });
+                    }
+                    
+                    // Type 4: Roots of unity
+                    for (let i = 0; i < 2; i++) {
+                        const n = rand(2, 8);
+                        questions.push({
+                            q: `How many ${n}th roots of unity exist?`,
+                            correct: n,
+                            type: "value"
+                        });
+                    }
+                    
+                    // Type 5: Powers of i (imaginary unit)
+                    const n5 = rand(4, 12);
+                    const results = [1, 'i', -1, '-i'];
+                    const idx = n5 % 4;
+                    questions.push({
+                        q: `What is i^${n5}? (Enter: 1 for 1, 2 for i, 3 for -1, 4 for -i)`,
+                        correct: idx === 0 ? 1 : idx === 1 ? 2 : idx === 2 ? 3 : 4,
+                        type: "value"
+                    });
+                    
+                    return questions;
+                },
+                videos: [
+                    { title: "📺 Galois Theory Introduction", url: "https://www.youtube.com" },
+                    { title: "📺 Algebraic Geometry Basics", url: "https://www.youtube.com" },
+                    { title: "📺 Representation Theory", url: "https://www.youtube.com" }
+                ]
+            }
+        };
+
+        // Helper function for GCD
+        function gcd(a, b) {
+            while (b !== 0) {
+                let temp = b;
+                b = a % b;
+                a = temp;
+            }
+            return a;
+        }
+
+        // Quiz variables
+        let currentTopic = 'algebra1';
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let answeredQuestions = 0;
+        let currentQuiz = [];
+
+        // Initialize quiz
+        function initQuiz() {
+            currentQuestionIndex = 0;
+            score = 0;
+            answeredQuestions = 0;
+            document.getElementById('quizResults').style.display = 'none';
+            document.getElementById('quizContainer').style.display = 'block';
+            
+            // Generate new quiz questions
+            currentQuiz = topicData[currentTopic].quizGenerator();
+            
+            loadQuestion();
+        }
+
+        // Load current question
+        function loadQuestion() {
+            const question = currentQuiz[currentQuestionIndex];
+            
+            document.getElementById('quizProgress').textContent = `Question ${currentQuestionIndex + 1}/10`;
+            document.getElementById('quizQuestion').textContent = question.q;
+            
+            const optionsContainer = document.getElementById('quizOptions');
+            optionsContainer.innerHTML = '';
+            
+            // Generate wrong answers around the correct answer
+            const correct = question.correct;
+            const wrongAnswers = [];
+            
+            // Create 3 wrong answers
+            for (let i = 0; i < 3; i++) {
+                let wrong;
+                do {
+                    const offset = rand(-5, 5);
+                    wrong = correct + offset;
+                } while (wrong === correct || wrongAnswers.includes(wrong) || wrong < 0);
+                wrongAnswers.push(wrong);
+            }
+            
+            // Combine and shuffle all answers
+            const allAnswers = [correct, ...wrongAnswers];
+            allAnswers.sort(() => Math.random() - 0.5);
+            
+            // Find which index is the correct answer
+            const correctIndex = allAnswers.indexOf(correct);
+            
+            // Create buttons
+            allAnswers.forEach((answer, index) => {
+                const btn = document.createElement('button');
+                btn.className = 'quiz-option';
+                btn.textContent = answer;
+                btn.onclick = () => checkAnswer(index, correctIndex);
+                optionsContainer.appendChild(btn);
+            });
+            
+            document.getElementById('nextBtn').style.display = 'none';
+        }
+
+        // Check answer
+        function checkAnswer(selectedIndex, correctIndex) {
+            const buttons = document.querySelectorAll('.quiz-option');
+            
+            // Disable all buttons
+            buttons.forEach(btn => btn.disabled = true);
+            
+            // Check if correct
+            if (selectedIndex === correctIndex) {
+                buttons[selectedIndex].classList.add('correct');
+                score++;
+            } else {
+                buttons[selectedIndex].classList.add('wrong');
+                buttons[correctIndex].classList.add('correct');
+            }
+            
+            answeredQuestions++;
+            document.getElementById('nextBtn').style.display = 'block';
+        }
+
+        // Next question
+        function nextQuestion() {
+            currentQuestionIndex++;
+            
+            if (currentQuestionIndex < 10) {
+                loadQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        // Show results
+        function showResults() {
+            document.getElementById('quizContainer').style.display = 'none';
+            document.getElementById('quizResults').style.display = 'block';
+            document.getElementById('scoreDisplay').textContent = `Your Score: ${score}/10`;
+        }
+
+        // Restart quiz
+        function restartQuiz() {
+            initQuiz();
+        }
+
+        // Get all topic list items
+        const topicItems = document.querySelectorAll('#topicList li');
+        
+        // Add click event to each topic
+        topicItems.forEach(item => {
+            item.addEventListener('click', function() {
+                // Remove active class from all items
+                topicItems.forEach(i => i.classList.remove('active'));
+                
+                // Add active class to clicked item
+                this.classList.add('active');
+                
+                // Get the topic key
+                const topic = this.getAttribute('data-topic');
+                
+                // Update content
+                updateContent(topic);
+            });
+        });
+
+        // Function to update content based on selected topic
+        function updateContent(topic) {
+            currentTopic = topic;
+            const data = topicData[topic];
+            
+            // Update title
+            document.getElementById('topicTitle').textContent = data.title;
+            
+            // Update image
+            document.getElementById('demoImage').src = data.image;
+            document.getElementById('demoImage').alt = data.title + " Demo";
+            
+            // Update why text
+            document.getElementById('whyText').textContent = data.why;
+            
+            // Update explanation text
+            document.getElementById('explanationText').textContent = data.explanation;
+            
+            // Update video links
+            const videoLinksContainer = document.getElementById('videoLinks');
+            videoLinksContainer.innerHTML = '';
+            data.videos.forEach(video => {
+                const link = document.createElement('a');
+                link.href = video.url;
+                link.target = "_blank";
+                link.textContent = video.title;
+                videoLinksContainer.appendChild(link);
+            });
+            
+            // Restart quiz for new topic
+            initQuiz();
+        }
+
+        // Initialize on page load
+        window.onload = function() {
+            initQuiz();
+        };
+
+        // Search functionality (dummy for now)
+        document.getElementById('searchBar').addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            // You can implement search functionality here later
+            console.log('Searching for:', searchTerm);
+        });
+    </script>
+</body>
+</html>
