@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import { House } from "lucide-react";
 export default function Header({ onNavigate }) {
   const [searchPlaceholder, setSearchPlaceholder] =
     useState("Search topics...");
@@ -7,9 +7,11 @@ export default function Header({ onNavigate }) {
   return (
     <header className="bg-[#191970] py-4 px-4 flex flex-grid items-center shadow-md relative justify-between">
       {/* Title */}
-      <h1 className="text-3xl md:text-4xl font-bold text-white mb-1 text-center pl-3">
-        LearnLibrary 📚
-      </h1>
+      <a href="/Home">
+        <h1 className="text-3xl md:text-4xl font-bold text-white mb-1 text-center pl-3">
+          LearnLibrary 📚
+        </h1>
+      </a>
 
       {/* Search Bar */}
       <div className="relative w-full max-w-xl">
