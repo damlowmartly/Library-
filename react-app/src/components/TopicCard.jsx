@@ -10,6 +10,12 @@ export default function TopicCard({
     if (onNavigate && title.toLowerCase() === "algebra") {
       onNavigate("algebra");
     }
+    else if (onNavigate && title.toLowerCase() === "geometry") {
+      onNavigate("geometry");
+    }
+    else if (onNavigate && title.toLowerCase() === "calculus") {
+      
+    }
   };
 
   return (
